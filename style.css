@@ -1689,3 +1689,133 @@ img{
         transform:translateY(0) rotate(-4deg);
     }
 }
+/* =========================================
+   NEXUS MOBILE UPGRADE
+========================================= */
+
+@media (max-width: 600px){
+
+    body{
+        overflow-x:hidden;
+    }
+
+    .nav{
+        padding:14px 18px;
+    }
+
+    .nav h2{
+        font-size:22px;
+    }
+
+    .nav-links{
+        gap:10px;
+    }
+
+    .hero{
+        min-height:100svh;
+        padding:110px 20px 60px;
+        text-align:center;
+    }
+
+    .hero h1{
+        font-size:clamp(48px,15vw,78px);
+        line-height:.92;
+    }
+
+    .hero p{
+        font-size:15px;
+        line-height:1.6;
+        max-width:340px;
+        margin:20px auto;
+    }
+
+    .hero-buttons{
+        display:flex;
+        flex-direction:column;
+        width:100%;
+        max-width:320px;
+        margin:25px auto 0;
+        gap:12px;
+    }
+
+    .hero-buttons button,
+    .hero-buttons a{
+        width:100%;
+        min-height:52px;
+    }
+
+    .hero-controller{
+        font-size:120px !important;
+        margin-top:25px;
+    }
+
+    .section{
+        padding:60px 18px;
+    }
+
+    .games-grid{
+        grid-template-columns:1fr;
+        gap:18px;
+    }
+
+    .game-card{
+        min-height:390px;
+        border-radius:18px;
+    }
+
+    .game-content{
+        padding:20px;
+    }
+
+    .game-bottom{
+        gap:10px;
+    }
+
+    .game-bottom button{
+        min-height:44px;
+        padding:10px 14px;
+    }
+
+    .game-modal{
+        width:calc(100% - 24px);
+        max-height:90svh;
+        overflow-y:auto;
+        border-radius:20px;
+    }
+
+    .search-box{
+        width:100%;
+    }
+
+    .categories{
+        display:flex;
+        overflow-x:auto;
+        gap:8px;
+        padding-bottom:8px;
+        scrollbar-width:none;
+    }
+
+    .categories::-webkit-scrollbar{
+        display:none;
+    }
+
+    .categories button{
+        flex-shrink:0;
+        min-height:42px;
+    }
+
+    .store-grid,
+    .trending-grid,
+    .reviews-grid{
+        grid-template-columns:1fr;
+    }
+
+    .player-dashboard{
+        margin:15px 18px;
+    }
+
+    .footer{
+        padding:45px 20px 30px;
+        text-align:center;
+    }
+}
