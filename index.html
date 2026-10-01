@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NEXUS | Gaming Universe</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="loader">
+    <div class="loader-logo">NEXUS<span>.</span></div>
+    <div class="loader-line"></div>
+</div>
+
+<div class="grid-bg"></div>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+
+    <div class="logo">NEXUS<span>.</span></div>
+
+    <div class="nav-links" id="navLinks">
+        <a href="#home">HOME</a>
+        <a href="#games">GAMES</a>
+        <a href="#store">STORE</a>
+        <a href="#play">PLAY</a>
+        <a href="#leaderboard">LEADERBOARD</a>
+        <a href="#community">COMMUNITY</a>
+    </div>
+
+    <div class="nav-actions">
+        <button class="notification-btn" onclick="showNotifications()">🔔</button>
+        <button class="sign-btn" onclick="openLogin()">SIGN IN</button>
+    </div>
+
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+</nav>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="hero-tag">THE NEXT GENERATION OF GAMING</div>
+
+        <h1>
+            PLAY<br>
+            <span>BEYOND</span><br>
+            LIMITS.
+        </h1>
+
+        <p>
+            Discover games, play directly in your browser,
+            compete with players and enter the NEXUS.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#games" class="primary-btn">EXPLORE GAMES</a>
+            <a href="#play" class="secondary-btn">PLAY NOW</a>
+        </div>
+
+    </div>
+
+    <div class="hero-controller">
+        🎮
+    </div>
+
+</section>
+
+
+<!-- NETWORK -->
+<section class="network-bar">
+
+    <div>
+        <span class="online-dot"></span>
+        NEXUS NETWORK ONLINE
+    </div>
+
+    <div>
+        <strong id="onlineCount">24,681</strong> PLAYERS ONLINE
+    </div>
+
+    <div class="server-status">
+        SERVER STATUS: <strong>STABLE</strong>
+    </div>
+
+</section>
+
+
+<!-- PLAYER -->
+<section class="player-dashboard">
+
+    <div class="player-card">
+
+        <div class="player-avatar">
+            👤
+        </div>
+
+        <div class="player-info">
+            <small>WELCOME BACK</small>
+            <h2 id="playerName">NEXUS PLAYER</h2>
+            <p id="playerLevel">LEVEL 1</p>
+        </div>
+
+        <div class="player-xp">
+
+            <div class="xp-text">
+                <span id="playerXP">0 / 100 XP</span>
+            </div>
+
+            <div class="xp-bar">
+                <div id="xpProgress"></div>
+            </div>
+
+        </div>
+
+        <button class="outline-btn" onclick="openProfile()">
+            PROFILE
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- GAMES -->
+<section class="section" id="games">
+
+    <div class="section-heading">
+        <div>
+            <span>DISCOVER</span>
+            <h2>GAMES</h2>
+        </div>
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="gameSearch"
+                placeholder="Search games..."
+            >
+            🔎
+        </div>
+    </div>
+
+    <div class="categories">
+        <button onclick="filterGames('all', this)" class="active">ALL</button>
+        <button onclick="filterGames('action', this)">ACTION</button>
+        <button onclick="filterGames('rpg', this)">RPG</button>
+        <button onclick="filterGames('racing', this)">RACING</button>
+        <button onclick="filterGames('battle', this)">BATTLE</button>
+    </div>
+
+
+    <div class="game-grid">
+
+        <article class="game-card gta"
+            data-name="Grand Theft Auto V"
+            data-category="action"
+            data-game="gta">
+
+            <button class="favorite-btn"
+                onclick="toggleFavorite(event,'gta')">♡</button>
+
+            <div class="game-content">
+                <span>ACTION</span>
+                <h3>Grand Theft Auto V</h3>
+                <p>Open World • Action</p>
+
+                <div class="game-bottom">
+                    <strong>⭐ 9.5</strong>
+                    <button onclick="openGame('Grand Theft Auto V','ACTION','gta')">
+                        PLAY
+                    </button>
+                </div>
+            </div>
+
+        </article>
+
+
+        <article class="game-card pubg"
+            data-name="PUBG Battlegrounds"
+            data-category="battle"
+            data-game="pubg">
+
+            <button class="favorite-btn"
+                onclick="toggleFavorite(event,'pubg')">♡</button>
+
+            <div class="game-content">
+                <span>BATTLE</span>
+                <h3>PUBG: BATTLEGROUNDS</h3>
+                <p>Battle Royale</p>
+
+                <div class="game-bottom">
+                    <strong>⭐ 9.1</strong>
+                    <button onclick="openGame('PUBG: BATTLEGROUNDS','BATTLE','pubg')">
+                        PLAY
+                    </button>
+                </div>
+            </div>
+
+        </article>
+
+
+        <article class="game-card cyberpunk"
+            data-name="Cyberpunk 2077"
+            data-category="rpg"
+            data-game="cyberpunk">
+
+            <button class="favorite-btn"
+                onclick="toggleFavorite(event,'cyberpunk')">♡</button>
+
+            <div class="game-content">
+                <span>RPG</span>
+                <h3>Cyberpunk 2077</h3>
+                <p>Action RPG</p>
+
+                <div class="game-bottom">
+                    <strong>⭐ 9.3</strong>
+                    <button onclick="openGame('Cyberpunk 2077','RPG','cyberpunk')">
+                        PLAY
+                    </button>
+                </div>
+            </div>
+
+        </article>
+
+
+        <article class="game-card forza"
+            data-name="Forza Horizon 5"
+            data-category="racing"
+            data-game="forza">
+
+            <button class="favorite-btn"
+                onclick="toggleFavorite(event,'forza')">♡</button>
+
+            <div class="game-content">
+                <span>RACING</span>
+                <h3>Forza Horizon 5</h3>
+                <p>Open World Racing</p>
+
+                <div class="game-bottom">
+                    <strong>⭐ 9.4</strong>
+                    <button onclick="openGame('Forza Horizon 5','RACING','forza')">
+                        PLAY
+                    </button>
+                </div>
+            </div>
+
+        </article>
+
+
+        <article class="game-card rdr"
+            data-name="Red Dead Redemption 2"
+            data-category="action"
+            data-game="rdr">
+
+            <button class="favorite-btn"
+                onclick="toggleFavorite(event,'rdr')">♡</button>
+
+            <div class="game-content">
+                <span>ACTION</span>
+                <h3>Red Dead Redemption 2</h3>
+                <p>Adventure • Open World</p>
+
+                <div class="game-bottom">
+                    <strong>⭐ 9.8</strong>
+                    <button onclick="openGame('Red Dead Redemption 2','ACTION','rdr')">
+                        PLAY
+                    </button>
+                </div>
+            </div>
+
+        </article>
+
+
+        <article class="game-card elden"
+            data-name="Elden Ring"
+            data-category="rpg"
+            data-game="elden">
+
+            <button class="favorite-btn"
+                onclick="toggleFavorite(event,'elden')">♡</button>
+
+            <div class="game-content">
+                <span>RPG</span>
+                <h3>Elden Ring</h3>
+                <p>Action RPG</p>
+
+                <div class="game-bottom">
+                    <strong>⭐ 9.7</strong>
+                    <button onclick="openGame('Elden Ring','RPG','elden')">
+                        PLAY
+                    </button>
+                </div>
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- STORE -->
+<section class="section store-section" id="store">
+
+    <div class="section-heading">
+        <div>
+            <span>NEXUS MARKETPLACE</span>
+            <h2>STORE</h2>
+        </div>
+    </div>
+
+    <div class="store-grid">
+
+        <div class="store-card">
+            <div class="store-image gta"></div>
+
+            <div class="store-info">
+                <span class="paid">PAID</span>
+                <h3>Grand Theft Auto V</h3>
+                <p>Premium action experience.</p>
+
+                <div class="price-row">
+                    <strong>$29.99</strong>
+
+                    <button onclick="buyGame('Grand Theft Auto V')">
+                        BUY GAME
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="store-card">
+            <div class="store-image cyberpunk"></div>
+
+            <div class="store-info">
+                <span class="paid">PAID</span>
+                <h3>Cyberpunk 2077</h3>
+                <p>Enter Night City.</p>
+
+                <div class="price-row">
+                    <strong>$39.99</strong>
+
+                    <button onclick="buyGame('Cyberpunk 2077')">
+                        BUY GAME
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="store-card">
+            <div class="store-image elden"></div>
+
+            <div class="store-info">
+                <span class="free">FREE</span>
+                <h3>NEXUS Mini Arena</h3>
+                <p>Play our browser game instantly.</p>
+
+                <div class="price-row">
+                    <strong>FREE</strong>
+
+                    <button onclick="location.href='#play'">
+                        PLAY
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- AD SPACE -->
+<section class="ad-section">
+
+    <span>ADVERTISEMENT</span>
+
+    <div class="ad-box">
+        <div>
+            <small>NEXUS ADVERTISEMENT SPACE</small>
+            <h3>Your future advertisement could appear here.</h3>
+            <p>
+                This area is prepared for a legitimate advertising
+                network when NEXUS is published.
+            </p>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- PLAY -->
+<section class="section play-section" id="play">
+
+    <div class="section-heading">
+        <div>
+            <span>NEXUS ORIGINAL</span>
+            <h2>PLAY IN BROWSER</h2>
+        </div>
+    </div>
+
+    <div class="browser-game">
+
+        <div class="game-screen">
+
+            <div class="game-hud">
+                <span>SCORE: <b id="gameScore">0</b></span>
+                <span>TIME: <b id="gameTime">30</b></span>
+            </div>
+
+            <div id="gameArea">
+                <button id="target" onclick="hitTarget()">
+                    🎯
+                </button>
+
+                <div class="game-start">
+                    <h3>NEXUS CLICK ARENA</h3>
+                    <p>Hit the target as many times as possible.</p>
+                    <button onclick="startMiniGame()">START GAME</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="game-description">
+            <span>NEXUS ORIGINAL #001</span>
+            <h3>CLICK ARENA</h3>
+
+            <p>
+                Your first NEXUS browser game.
+                No download required.
+            </p>
+
+            <div class="game-features">
+                <div>🎮 BROWSER GAME</div>
+                <div>🏆 SCORE SYSTEM</div>
+                <div>⚡ XP REWARD</div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TRENDING -->
+<section class="section">
+
+    <div class="section-heading">
+        <div>
+            <span>RIGHT NOW</span>
+            <h2>TRENDING</h2>
+        </div>
+    </div>
+
+    <div class="trending-grid">
+
+        <div class="trending-card pubg">
+            <div>
+                <span>#01</span>
+                <h3>PUBG</h3>
+                <p>Battle Royale</p>
+            </div>
+        </div>
+
+        <div class="trending-card elden">
+            <div>
+                <span>#02</span>
+                <h3>ELDEN RING</h3>
+                <p>Action RPG</p>
+            </div>
+        </div>
+
+        <div class="trending-card cyberpunk">
+            <div>
+                <span>#03</span>
+                <h3>CYBERPUNK</h3>
+                <p>Action RPG</p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LEADERBOARD -->
+<section class="section" id="leaderboard">
+
+    <div class="section-heading">
+        <div>
+            <span>COMPETE</span>
+            <h2>LEADERBOARD</h2>
+        </div>
+    </div>
+
+    <div class="leaderboard">
+
+        <div class="leader first">
+            <span>01</span>
+            <strong>ShadowX</strong>
+            <b>2,450 XP</b>
+        </div>
+
+        <div class="leader second">
+            <span>02</span>
+            <strong>NightWolf</strong>
+            <b>2,120 XP</b>
+        </div>
+
+        <div class="leader third">
+            <span>03</span>
+            <strong>Roba</strong>
+            <b>1,980 XP</b>
+        </div>
+
+        <div class="leader">
+            <span>04</span>
+            <strong>Ghost</strong>
+            <b>1,740 XP</b>
+        </div>
+
+        <div class="leader">
+            <span>05</span>
+            <strong>Zero</strong>
+            <b>1,520 XP</b>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- REVIEWS -->
+<section class="section">
+
+    <div class="section-heading">
+        <div>
+            <span>PLAYER FEEDBACK</span>
+            <h2>REVIEWS</h2>
+        </div>
+    </div>
+
+    <div class="reviews">
+
+        <div class="review">
+            <div>⭐⭐⭐⭐⭐</div>
+            <p>
+                "The NEXUS interface looks crazy."
+            </p>
+            <strong>— ShadowX</strong>
+        </div>
+
+        <div class="review">
+            <div>⭐⭐⭐⭐⭐</div>
+            <p>
+                "The browser game is actually fun."
+            </p>
+            <strong>— NightWolf</strong>
+        </div>
+
+        <div class="review">
+            <div>⭐⭐⭐⭐</div>
+            <p>
+                "Can't wait for more games."
+            </p>
+            <strong>— Ghost</strong>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- COMMUNITY -->
+<section class="community-section" id="community">
+
+    <div>
+        <span>JOIN THE NETWORK</span>
+        <h2>BUILD THE FUTURE<br>OF GAMING.</h2>
+        <p>
+            Meet players, discover games and become part
+            of the NEXUS community.
+        </p>
+
+        <button class="primary-btn" onclick="joinCommunity()">
+            JOIN COMMUNITY
+        </button>
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <div class="logo">NEXUS<span>.</span></div>
+
+    <p>
+        A gaming universe built for the next generation.
+    </p>
+
+    <small>© 2026 NEXUS. All rights reserved.</small>
+
+</footer>
+
+
+<!-- GAME MODAL -->
+<div class="modal" id="gameModal">
+
+    <div class="modal-box">
+
+        <button class="close-btn" onclick="closeModal()">×</button>
+
+        <div id="modalImage" class="modal-game-image"></div>
+
+        <span id="modalCategory"></span>
+
+        <h2 id="modalTitle"></h2>
+
+        <div class="modal-stats">
+            ⭐ <span id="modalRating"></span>
+            👥 <span id="modalPlayers"></span>
+        </div>
+
+        <p id="modalDescription"></p>
+
+        <button class="primary-btn" onclick="playGame()">
+            PLAY NOW
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- PROFILE MODAL -->
+<div class="modal" id="profileModal">
+
+    <div class="modal-box profile-modal">
+
+        <button class="close-btn" onclick="closeProfile()">×</button>
+
+        <div class="big-avatar">👤</div>
+
+        <h2 id="profileName">NEXUS PLAYER</h2>
+
+        <span id="profileLevel">LEVEL 1</span>
+
+        <div class="xp-bar">
+            <div id="profileXPProgress"></div>
+        </div>
+
+        <p id="profileXP">0 / 100 XP</p>
+
+        <div class="profile-stats">
+
+            <div>
+                <strong id="profileGames">0</strong>
+                <span>GAMES</span>
+            </div>
+
+            <div>
+                <strong id="profileFavorites">0</strong>
+                <span>FAVORITES</span>
+            </div>
+
+            <div>
+                <strong id="profileAchievements">0</strong>
+                <span>ACHIEVEMENTS</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- LOGIN -->
+<div class="modal" id="loginModal">
+
+    <div class="modal-box">
+
+        <button class="close-btn" onclick="closeLogin()">×</button>
+
+        <span>WELCOME TO NEXUS</span>
+
+        <h2>SIGN IN</h2>
+
+        <input id="username" placeholder="Username">
+
+        <input id="password" type="password" placeholder="Password">
+
+        <button class="primary-btn" onclick="login()">
+            ENTER NEXUS
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- NOTIFICATION -->
+<div id="notification">
+    <span id="notificationText"></span>
+</div>
+
+
+<!-- BACK TO TOP -->
+<button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    ↑
+</button>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
