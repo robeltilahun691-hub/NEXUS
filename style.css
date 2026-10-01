@@ -1665,3 +1665,27 @@ img{
 .game-card:hover .favorite-btn{
     transform:scale(1.08);
 }
+/* FORCE CONTROLLER FLOAT */
+
+.hero-controller{
+    display:block !important;
+    position:relative !important;
+    font-size:220px !important;
+    animation: nexusControllerFloat 3s ease-in-out infinite !important;
+    transform-origin:center center !important;
+    will-change:transform !important;
+}
+
+@keyframes nexusControllerFloat{
+    0%{
+        transform:translateY(0) rotate(-4deg);
+    }
+
+    50%{
+        transform:translateY(-45px) rotate(5deg);
+    }
+
+    100%{
+        transform:translateY(0) rotate(-4deg);
+    }
+}
