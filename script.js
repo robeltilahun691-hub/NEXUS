@@ -1,234 +1,209 @@
 /* =========================================
-NEXUS 8.0
-PLAYER + STORE + MINI GAME SYSTEM
+   NEXUS 7.0
+   CREATOR + STORE SYSTEM
 ========================================= */
 
+
+/* PLAYER DATA */
+
 let player = JSON.parse(localStorage.getItem("nexusPlayer")) || {
-name: "NEXUS PLAYER",
-xp: 0,
-level: 1,
-gamesPlayed: 0,
-favorites: [],
-achievements: []
+    name: "NEXUS PLAYER",
+    xp: 0,
+    level: 1,
+    gamesPlayed: 0,
+    favorites: [],
+    achievements: []
 };
 
 function savePlayer() {
-localStorage.setItem("nexusPlayer", JSON.stringify(player));
+    localStorage.setItem("nexusPlayer", JSON.stringify(player));
 }
+
 
 /* LOADER */
 
 window.addEventListener("load", () => {
-setTimeout(() => {
-const loader = document.getElementById("loader");
 
-```
-    if (loader) {
-        loader.style.opacity = "0";
+    setTimeout(() => {
 
-        setTimeout(() => {
-            loader.style.display = "none";
-        }, 600);
-    }
-}, 900);
-```
+        const loader = document.getElementById("loader");
+
+        if (loader) {
+            loader.style.opacity = "0";
+
+            setTimeout(() => {
+                loader.style.display = "none";
+            }, 600);
+        }
+
+    }, 900);
 
 });
+
 
 /* MOBILE MENU */
 
 function toggleMenu() {
-const nav = document.getElementById("navLinks");
 
-```
-if (!nav) return;
+    const nav = document.getElementById("navLinks");
 
-nav.classList.toggle("open");
-```
-
+    nav.classList.toggle("open");
 }
-
-/* CLOSE MOBILE MENU AFTER CLICK */
-
 
 
 /* XP SYSTEM */
 
 function addXP(amount) {
 
-```
-player.xp += amount;
+    player.xp += amount;
 
-while (player.xp >= 100) {
+    while (player.xp >= 100) {
 
-    player.xp -= 100;
-    player.level++;
+        player.xp -= 100;
+        player.level++;
 
-    if (!player.achievements.includes("level-up")) {
-        player.achievements.push("level-up");
+        showNotification(
+            `LEVEL UP! You reached LEVEL ${player.level} 🚀`
+        );
     }
 
-    showNotification(
-        `LEVEL UP! You reached LEVEL ${player.level} 🚀`
-    );
+    savePlayer();
+    updatePlayerUI();
 }
 
-savePlayer();
-updatePlayerUI();
-```
-
-}
 
 function updatePlayerUI() {
 
-```
-const playerName = document.getElementById("playerName");
-const playerLevel = document.getElementById("playerLevel");
-const playerXP = document.getElementById("playerXP");
-const xpProgress = document.getElementById("xpProgress");
+    document.getElementById("playerName").textContent =
+        player.name;
 
-if (playerName) {
-    playerName.textContent = player.name;
+    document.getElementById("playerLevel").textContent =
+        `LEVEL ${player.level}`;
+
+    document.getElementById("playerXP").textContent =
+        `${player.xp} / 100 XP`;
+
+    document.getElementById("xpProgress").style.width =
+        `${player.xp}%`;
+
+    updateProfileUI();
 }
 
-if (playerLevel) {
-    playerLevel.textContent = `LEVEL ${player.level}`;
-}
-
-if (playerXP) {
-    playerXP.textContent = `${player.xp} / 100 XP`;
-}
-
-if (xpProgress) {
-    xpProgress.style.width = `${player.xp}%`;
-}
-
-updateProfileUI();
-```
-
-}
 
 /* PROFILE */
 
 function openProfile() {
 
-```
-updateProfileUI();
+    updateProfileUI();
 
-document
-    .getElementById("profileModal")
-    ?.classList.add("show");
-```
-
+    document
+        .getElementById("profileModal")
+        .classList.add("show");
 }
+
 
 function closeProfile() {
 
-```
-document
-    .getElementById("profileModal")
-    ?.classList.remove("show");
-```
-
+    document
+        .getElementById("profileModal")
+        .classList.remove("show");
 }
+
 
 function updateProfileUI() {
 
-```
-const name = document.getElementById("profileName");
+    const name = document.getElementById("profileName");
 
-if (!name) return;
+    if (!name) return;
 
-name.textContent = player.name;
+    name.textContent = player.name;
 
-document.getElementById("profileLevel").textContent =
-    `LEVEL ${player.level}`;
+    document.getElementById("profileLevel").textContent =
+        `LEVEL ${player.level}`;
 
-document.getElementById("profileXP").textContent =
-    `${player.xp} / 100 XP`;
+    document.getElementById("profileXP").textContent =
+        `${player.xp} / 100 XP`;
 
-document.getElementById("profileXPProgress").style.width =
-    `${player.xp}%`;
+    document.getElementById("profileXPProgress").style.width =
+        `${player.xp}%`;
 
-document.getElementById("profileGames").textContent =
-    player.gamesPlayed;
+    document.getElementById("profileGames").textContent =
+        player.gamesPlayed;
 
-document.getElementById("profileFavorites").textContent =
-    player.favorites.length;
+    document.getElementById("profileFavorites").textContent =
+        player.favorites.length;
 
-document.getElementById("profileAchievements").textContent =
-    player.achievements.length;
-```
-
+    document.getElementById("profileAchievements").textContent =
+        player.achievements.length;
 }
+
 
 /* GAME DATA */
 
 const gameData = {
 
-```
-gta: {
-    title: "Grand Theft Auto V",
-    category: "ACTION",
-    rating: "9.5",
-    players: "150K+",
-    image: "gta",
-    description:
-        "Explore a huge open world filled with missions, vehicles and endless possibilities."
-},
+    gta: {
+        title: "Grand Theft Auto V",
+        category: "ACTION",
+        rating: "9.5",
+        players: "150K+",
+        image: "gta",
+        description:
+            "Explore a huge open world filled with missions, vehicles and endless possibilities."
+    },
 
-pubg: {
-    title: "PUBG: BATTLEGROUNDS",
-    category: "BATTLE",
-    rating: "9.1",
-    players: "280K+",
-    image: "pubg",
-    description:
-        "Drop into the battlefield, find equipment and fight to become the last player standing."
-},
+    pubg: {
+        title: "PUBG: BATTLEGROUNDS",
+        category: "BATTLE",
+        rating: "9.1",
+        players: "280K+",
+        image: "pubg",
+        description:
+            "Drop into the battlefield, find equipment and fight to become the last player standing."
+    },
 
-cyberpunk: {
-    title: "Cyberpunk 2077",
-    category: "RPG",
-    rating: "9.3",
-    players: "120K+",
-    image: "cyberpunk",
-    description:
-        "Enter Night City and experience a futuristic action RPG adventure."
-},
+    cyberpunk: {
+        title: "Cyberpunk 2077",
+        category: "RPG",
+        rating: "9.3",
+        players: "120K+",
+        image: "cyberpunk",
+        description:
+            "Enter Night City and experience a futuristic action RPG adventure."
+    },
 
-forza: {
-    title: "Forza Horizon 5",
-    category: "RACING",
-    rating: "9.4",
-    players: "95K+",
-    image: "forza",
-    description:
-        "Race through an open world filled with cars, challenges and events."
-},
+    forza: {
+        title: "Forza Horizon 5",
+        category: "RACING",
+        rating: "9.4",
+        players: "95K+",
+        image: "forza",
+        description:
+            "Race through an open world filled with cars, challenges and events."
+    },
 
-rdr: {
-    title: "Red Dead Redemption 2",
-    category: "ACTION",
-    rating: "9.8",
-    players: "110K+",
-    image: "rdr",
-    description:
-        "Explore the American frontier in an enormous story-driven adventure."
-},
+    rdr: {
+        title: "Red Dead Redemption 2",
+        category: "ACTION",
+        rating: "9.8",
+        players: "110K+",
+        image: "rdr",
+        description:
+            "Explore the American frontier in an enormous story-driven adventure."
+    },
 
-elden: {
-    title: "Elden Ring",
-    category: "RPG",
-    rating: "9.7",
-    players: "170K+",
-    image: "elden",
-    description:
-        "Explore a dangerous fantasy world and face powerful enemies."
-}
-```
+    elden: {
+        title: "Elden Ring",
+        category: "RPG",
+        rating: "9.7",
+        players: "170K+",
+        image: "elden",
+        description:
+            "Explore a dangerous fantasy world and face powerful enemies."
+    }
 
 };
+
 
 /* GAME MODAL */
 
@@ -236,67 +211,58 @@ let currentGame = null;
 
 function openGame(title, category, gameId) {
 
-```
-const game = gameData[gameId];
+    const game = gameData[gameId];
 
-if (!game) return;
+    if (!game) return;
 
-currentGame = gameId;
+    currentGame = gameId;
 
-const image = document.getElementById("modalImage");
+    document.getElementById("modalImage").className =
+        "modal-game-image " + game.image;
 
-image.className =
-    "modal-game-image " + game.image;
+    document.getElementById("modalCategory").textContent =
+        game.category;
 
-document.getElementById("modalCategory").textContent =
-    game.category;
+    document.getElementById("modalTitle").textContent =
+        game.title;
 
-document.getElementById("modalTitle").textContent =
-    game.title;
+    document.getElementById("modalRating").textContent =
+        game.rating;
 
-document.getElementById("modalRating").textContent =
-    game.rating;
+    document.getElementById("modalPlayers").textContent =
+        game.players;
 
-document.getElementById("modalPlayers").textContent =
-    game.players;
+    document.getElementById("modalDescription").textContent =
+        game.description;
 
-document.getElementById("modalDescription").textContent =
-    game.description;
-
-document
-    .getElementById("gameModal")
-    .classList.add("show");
-```
+    document
+        .getElementById("gameModal")
+        .classList.add("show");
 
 }
+
 
 function closeModal() {
 
-```
-document
-    .getElementById("gameModal")
-    ?.classList.remove("show");
-```
-
+    document
+        .getElementById("gameModal")
+        .classList.remove("show");
 }
+
 
 function playGame() {
 
-```
-if (!currentGame) return;
+    player.gamesPlayed++;
 
-player.gamesPlayed++;
+    addXP(15);
 
-addXP(15);
+    showNotification(
+        `You played ${gameData[currentGame].title} 🎮 +15 XP`
+    );
 
-showNotification(
-    `You played ${gameData[currentGame].title} 🎮 +15 XP`
-);
-
-closeModal();
-```
-
+    closeModal();
 }
+
 
 /* SEARCH */
 
@@ -304,200 +270,185 @@ const search = document.getElementById("gameSearch");
 
 if (search) {
 
-```
-search.addEventListener("input", () => {
+    search.addEventListener("input", () => {
 
-    const value = search.value.toLowerCase().trim();
+        const value =
+            search.value.toLowerCase();
 
-    document.querySelectorAll(".game-card")
-        .forEach(card => {
+        document.querySelectorAll(".game-card")
+            .forEach(card => {
 
-            const name =
-                card.dataset.name.toLowerCase();
+                const name =
+                    card.dataset.name.toLowerCase();
 
-            const category =
-                card.dataset.category.toLowerCase();
+                const category =
+                    card.dataset.category.toLowerCase();
 
-            const matches =
-                name.includes(value) ||
-                category.includes(value);
+                card.style.display =
+                    name.includes(value) ||
+                    category.includes(value)
+                        ? ""
+                        : "none";
 
-            card.style.display =
-                matches ? "" : "none";
-        });
-});
-```
+            });
+
+    });
 
 }
+
 
 /* FILTER */
 
 function filterGames(category, button) {
 
-```
-document
-    .querySelectorAll(".categories button")
-    .forEach(btn =>
-        btn.classList.remove("active")
-    );
+    document
+        .querySelectorAll(".categories button")
+        .forEach(btn => btn.classList.remove("active"));
 
-if (button) {
     button.classList.add("active");
-}
 
-document
-    .querySelectorAll(".game-card")
-    .forEach(card => {
+    document
+        .querySelectorAll(".game-card")
+        .forEach(card => {
 
-        const matches =
-            category === "all" ||
-            card.dataset.category === category;
+            if (
+                category === "all" ||
+                card.dataset.category === category
+            ) {
+                card.style.display = "";
+            } else {
+                card.style.display = "none";
+            }
 
-        card.style.display =
-            matches ? "" : "none";
-    });
-
-const searchBox = document.getElementById("gameSearch");
-
-if (searchBox) {
-    searchBox.value = "";
-}
-```
+        });
 
 }
+
 
 /* FAVORITES */
 
 function toggleFavorite(event, gameId) {
 
-```
-event.stopPropagation();
+    event.stopPropagation();
 
-const index =
-    player.favorites.indexOf(gameId);
+    const index =
+        player.favorites.indexOf(gameId);
 
-if (index === -1) {
+    if (index === -1) {
 
-    player.favorites.push(gameId);
+        player.favorites.push(gameId);
 
-    addXP(10);
+        addXP(10);
 
-    showNotification("Added to favorites ❤️");
+        showNotification("Added to favorites ❤️");
 
-} else {
+    } else {
 
-    player.favorites.splice(index, 1);
+        player.favorites.splice(index, 1);
 
-    showNotification("Removed from favorites");
+        showNotification("Removed from favorites");
+
+    }
+
+    savePlayer();
+
+    updateFavoriteButtons();
+    updateProfileUI();
 }
 
-savePlayer();
-
-updateFavoriteButtons();
-updateProfileUI();
-```
-
-}
 
 function updateFavoriteButtons() {
 
-```
-document
-    .querySelectorAll(".favorite-btn")
-    .forEach(button => {
+    document
+        .querySelectorAll(".favorite-btn")
+        .forEach(button => {
 
-        const card =
-            button.closest(".game-card");
+            const card =
+                button.closest(".game-card");
 
-        if (!card) return;
+            if (!card) return;
 
-        const id =
-            card.dataset.game;
+            const id =
+                card.dataset.game;
 
-        const favorite =
-            player.favorites.includes(id);
+            button.textContent =
+                player.favorites.includes(id)
+                    ? "♥"
+                    : "♡";
 
-        button.textContent =
-            favorite ? "♥" : "♡";
-
-        button.setAttribute(
-            "aria-label",
-            favorite
-                ? "Remove from favorites"
-                : "Add to favorites"
-        );
-    });
-```
+        });
 
 }
+
 
 /* STORE */
 
 function buyGame(gameName) {
 
-```
-showNotification(
-    `${gameName} store link will be connected here.`
-);
-```
+    showNotification(
+        `${gameName} store link will be connected here.`
+    );
 
+    /*
+       IMPORTANT:
+
+       Later, replace this function with your
+       real store / affiliate link.
+
+       Example:
+
+       window.open(
+          "YOUR_REAL_AFFILIATE_LINK",
+          "_blank"
+       );
+    */
 }
+
 
 /* COMMUNITY */
 
 function joinCommunity() {
 
-```
-if (!player.achievements.includes("community")) {
-    player.achievements.push("community");
-}
+    addXP(20);
 
-addXP(20);
-
-showNotification(
-    "Welcome to the NEXUS community! 👾 +20 XP"
-);
-```
+    showNotification(
+        "Welcome to the NEXUS community! 👾 +20 XP"
+    );
 
 }
+
 
 /* NOTIFICATIONS */
 
-let notificationTimer;
-
 function showNotification(message) {
 
-```
-const box =
-    document.getElementById("notification");
+    const box =
+        document.getElementById("notification");
 
-const text =
-    document.getElementById("notificationText");
+    const text =
+        document.getElementById("notificationText");
 
-if (!box || !text) return;
+    text.textContent = message;
 
-clearTimeout(notificationTimer);
+    box.classList.add("show");
 
-text.textContent = message;
+    setTimeout(() => {
 
-box.classList.add("show");
+        box.classList.remove("show");
 
-notificationTimer = setTimeout(() => {
-    box.classList.remove("show");
-}, 3000);
-```
+    }, 3000);
 
 }
+
 
 function showNotifications() {
 
-```
-showNotification(
-    "NEXUS is running normally 🔔"
-);
-```
+    showNotification(
+        "NEXUS is running normally 🔔"
+    );
 
 }
+
 
 /* ONLINE PLAYERS */
 
@@ -505,23 +456,17 @@ let onlinePlayers = 24681;
 
 setInterval(() => {
 
-```
-onlinePlayers +=
-    Math.floor(Math.random() * 80) - 35;
+    onlinePlayers +=
+        Math.floor(Math.random() * 80) - 35;
 
-const counter =
-    document.getElementById("onlineCount");
-
-if (counter) {
-    counter.textContent =
+    document.getElementById("onlineCount").textContent =
         onlinePlayers.toLocaleString();
-}
-```
 
 }, 4500);
 
+
 /* =========================================
-NEXUS MINI GAME
+   NEXUS MINI GAME
 ========================================= */
 
 let miniGameRunning = false;
@@ -529,225 +474,198 @@ let score = 0;
 let timeLeft = 30;
 let gameTimer = null;
 
+
 function startMiniGame() {
 
-```
-if (miniGameRunning) return;
+    if (miniGameRunning) return;
 
-miniGameRunning = true;
-score = 0;
-timeLeft = 30;
+    miniGameRunning = true;
+    score = 0;
+    timeLeft = 30;
 
-document.getElementById("gameScore").textContent =
-    score;
+    document.getElementById("gameScore").textContent = score;
+    document.getElementById("gameTime").textContent = timeLeft;
 
-document.getElementById("gameTime").textContent =
-    timeLeft;
+    document.querySelector(".game-start").style.display = "none";
 
-const startScreen =
-    document.querySelector(".game-start");
+    const target =
+        document.getElementById("target");
 
-if (startScreen) {
-    startScreen.style.display = "none";
-}
+    target.style.display = "block";
 
-const target =
-    document.getElementById("target");
+    moveTarget();
 
-target.style.display = "block";
+    gameTimer = setInterval(() => {
 
-moveTarget();
+        timeLeft--;
 
-gameTimer = setInterval(() => {
+        document.getElementById("gameTime").textContent =
+            timeLeft;
 
-    timeLeft--;
+        if (timeLeft <= 0) {
 
-    document.getElementById("gameTime").textContent =
-        timeLeft;
+            endMiniGame();
 
-    if (timeLeft <= 0) {
-        endMiniGame();
-    }
+        }
 
-}, 1000);
-```
+    }, 1000);
 
 }
+
 
 function moveTarget() {
 
-```
-if (!miniGameRunning) return;
+    if (!miniGameRunning) return;
 
-const area =
-    document.getElementById("gameArea");
+    const area =
+        document.getElementById("gameArea");
 
-const target =
-    document.getElementById("target");
+    const target =
+        document.getElementById("target");
 
-if (!area || !target) return;
+    const maxX =
+        area.clientWidth - 60;
 
-const maxX =
-    Math.max(10, area.clientWidth - 70);
+    const maxY =
+        area.clientHeight - 80;
 
-const maxY =
-    Math.max(10, area.clientHeight - 90);
+    const x =
+        Math.random() * maxX;
 
-const x =
-    Math.random() * maxX;
+    const y =
+        Math.random() * maxY;
 
-const y =
-    Math.random() * maxY;
-
-target.style.left =
-    `${x}px`;
-
-target.style.top =
-    `${y}px`;
-```
+    target.style.left = `${x}px`;
+    target.style.top = `${y}px`;
 
 }
+
 
 function hitTarget() {
 
-```
-if (!miniGameRunning) return;
+    if (!miniGameRunning) return;
 
-score++;
+    score++;
 
-document.getElementById("gameScore").textContent =
-    score;
+    document.getElementById("gameScore").textContent =
+        score;
 
-moveTarget();
-```
+    moveTarget();
 
 }
+
 
 function endMiniGame() {
 
-```
-clearInterval(gameTimer);
+    clearInterval(gameTimer);
 
-gameTimer = null;
-miniGameRunning = false;
+    miniGameRunning = false;
 
-const target =
-    document.getElementById("target");
+    document.getElementById("target").style.display =
+        "none";
 
-const startScreen =
-    document.querySelector(".game-start");
+    document.querySelector(".game-start").style.display =
+        "grid";
 
-target.style.display = "none";
+    document.querySelector(".game-start h3").textContent =
+        `GAME OVER — ${score} HITS`;
 
-startScreen.style.display = "grid";
+    if (score > 0) {
 
-startScreen.querySelector("h3").textContent =
-    `GAME OVER — ${score} HITS`;
+        addXP(Math.min(score * 2, 50));
 
-if (score > 0) {
+        showNotification(
+            `Game finished! ${score} hits 🎯`
+        );
 
-    addXP(Math.min(score * 2, 50));
-
-    showNotification(
-        `Game finished! ${score} hits 🎯`
-    );
-}
-```
+    }
 
 }
+
 
 /* MODAL OUTSIDE CLICK */
 
 document.querySelectorAll(".modal")
-.forEach(modal => {
+    .forEach(modal => {
 
-```
-    modal.addEventListener("click", event => {
+        modal.addEventListener("click", event => {
 
-        if (event.target === modal) {
-            modal.classList.remove("show");
-        }
+            if (event.target === modal) {
+                modal.classList.remove("show");
+            }
+
+        });
+
     });
-});
-```
 
-/* ESCAPE KEY */
+
+/* ESCAPE */
 
 document.addEventListener("keydown", event => {
 
-```
-if (event.key === "Escape") {
+    if (event.key === "Escape") {
 
-    document
-        .querySelectorAll(".modal")
-        .forEach(modal =>
-            modal.classList.remove("show")
-        );
+        document
+            .querySelectorAll(".modal")
+            .forEach(modal =>
+                modal.classList.remove("show")
+            );
 
-    document
-        .getElementById("navLinks")
-        ?.classList.remove("open");
-}
-```
+    }
 
 });
+
 
 /* LOGIN */
 
 function openLogin() {
 
-```
-document
-    .getElementById("loginModal")
-    ?.classList.add("show");
-```
+    document
+        .getElementById("loginModal")
+        .classList.add("show");
 
 }
+
 
 function closeLogin() {
 
-```
-document
-    .getElementById("loginModal")
-    ?.classList.remove("show");
-```
+    document
+        .getElementById("loginModal")
+        .classList.remove("show");
 
 }
+
 
 function login() {
 
-```
-const username =
-    document.getElementById("username").value.trim();
+    const username =
+        document.getElementById("username").value.trim();
 
-const password =
-    document.getElementById("password").value.trim();
+    const password =
+        document.getElementById("password").value.trim();
 
-if (!username || !password) {
+    if (!username || !password) {
+
+        showNotification(
+            "Enter your username and password."
+        );
+
+        return;
+    }
+
+    player.name = username;
+
+    savePlayer();
+    updatePlayerUI();
+
+    closeLogin();
 
     showNotification(
-        "Enter your username and password."
+        `Welcome to NEXUS, ${username} 🎮`
     );
 
-    return;
 }
 
-player.name = username;
-
-savePlayer();
-updatePlayerUI();
-
-closeLogin();
-
-document.getElementById("username").value = "";
-document.getElementById("password").value = "";
-
-showNotification(
-    `Welcome to NEXUS, ${username} 🎮`
-);
-```
-
-}
 
 /* INITIALIZE */
 
@@ -755,5 +673,5 @@ updatePlayerUI();
 updateFavoriteButtons();
 
 console.log(
-"NEXUS 8.0 — System Online 🚀"
+    "NEXUS 7.0 — Creator + Store System Loaded"
 );
